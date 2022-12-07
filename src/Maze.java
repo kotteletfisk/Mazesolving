@@ -46,8 +46,10 @@ public class Maze
             {
                 MazeNode node = new MazeNode(x, 0);
                 addNode(node);
+                above_nodes[x] = node;
                 node_count++;
                 entrance_found = true;
+                break;
             }
         }
 
@@ -147,10 +149,21 @@ public class Maze
                 if (node != null)
                 {
                     // If clear above current node, we assume a node should be connected above
-                    if (maze_img.getRGB(x, y - 1) == -1 && node_map[x][y - 1] != null) //TODO: make it work without second condition!
+                    if (maze_img.getRGB(x, y - 1) == -1) //TODO: make it work without second condition!
                     {
-                        node_map[x][y - 1].setSouth(node);
-                        node.setNorth(node_map[x][y - 1]);
+                        above_nodes[x].setSouth(node);
+                        node.setNorth(above_nodes[x]);
+                    }
+
+                    // if clear below current node, put it in the above node buffer
+                    if (maze_img.getRGB(x, y + 1) == -1)
+                    {
+                        above_nodes[x] = node;
+                    }
+
+                    else
+                    {
+                        above_nodes[x] = null;
                     }
                 }
 
@@ -167,8 +180,8 @@ public class Maze
                 addNode(node);
                 node_count++;
 
-                node_map[x][height].setSouth(node);
-                node.setNorth(node_map[x][height]);
+                above_nodes[x].setSouth(node);
+                node.setNorth(above_nodes[x]);
             }
         }
         System.out.println(node_count);

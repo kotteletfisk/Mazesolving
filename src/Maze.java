@@ -10,6 +10,9 @@ public class Maze
     private BufferedImage maze_img;
     private MazeNode[][] node_map;
 
+    private MazeNode entrance;
+    private MazeNode exit;
+
     public Maze(String img_path)
     {
         this.img_path = img_path;
@@ -24,16 +27,14 @@ public class Maze
         }
         catch (IOException e)
         {
+            System.out.println("Failed to load maze image");
             e.printStackTrace();
         }
     }
 
-    public void createNodes()
+    public int createNodes()
     {
-        //TODO: keep track of nodes added in previous row to connect to lower rows
         //TODO: Best way to store nodes?? 2D array seems dumb...
-
-        //TODO: Implement above_nodes as connection buffer, since node_map cant be used!
 
         int node_count = 0;
         MazeNode[] above_nodes = new MazeNode[maze_img.getWidth()];
@@ -49,6 +50,7 @@ public class Maze
                 above_nodes[x] = node;
                 node_count++;
                 entrance_found = true;
+                entrance = node;
                 break;
             }
         }
@@ -149,7 +151,7 @@ public class Maze
                 if (node != null)
                 {
                     // If clear above current node, we assume a node should be connected above
-                    if (maze_img.getRGB(x, y - 1) == -1) //TODO: make it work without second condition!
+                    if (maze_img.getRGB(x, y - 1) == -1)
                     {
                         above_nodes[x].setSouth(node);
                         node.setNorth(above_nodes[x]);
@@ -182,10 +184,10 @@ public class Maze
 
                 above_nodes[x].setSouth(node);
                 node.setNorth(above_nodes[x]);
+                exit = node;
             }
         }
-        System.out.println(node_count);
-        // return nodes somehow;
+        return node_count;
     }
 
     public void addNode(MazeNode node)
@@ -224,6 +226,16 @@ public class Maze
     public MazeNode[][] getNode_map()
     {
         return node_map;
+    }
+
+    public MazeNode getEntrance()
+    {
+        return entrance;
+    }
+
+    public MazeNode getExit()
+    {
+        return exit;
     }
 
     public void printNodeConnections()

@@ -8,6 +8,9 @@ public class MazeNode
     private MazeNode north;
     private MazeNode south;
 
+    public boolean visited;
+    public MazeNode parent;
+
     public MazeNode(int x_pos, int y_pos)
     {
         this.x_pos = x_pos;
@@ -17,6 +20,9 @@ public class MazeNode
         this.east = null;
         this.north = null;
         this.south = null;
+
+        this.visited = false;
+        this.parent = null;
     }
 
     public int getX_pos()
@@ -29,25 +35,11 @@ public class MazeNode
         return y_pos;
     }
 
-    public MazeNode getWest()
+    public MazeNode[] getNeighbours()
     {
-        return west;
+        return new MazeNode[]{west, east, north, south};
     }
 
-    public MazeNode getEast()
-    {
-        return east;
-    }
-
-    public MazeNode getNorth()
-    {
-        return north;
-    }
-
-    public MazeNode getSouth()
-    {
-        return south;
-    }
 
     public void setWest(MazeNode west)
     {

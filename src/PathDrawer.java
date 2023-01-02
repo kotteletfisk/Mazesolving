@@ -11,7 +11,7 @@ public class PathDrawer
         g2.drawImage(image, 0, 0, null);
         g2.setColor(Color.red);
 
-        for (int i = 1; i < path.length -1; i++)
+        for (int i = 0; i < path.length -1; i++)
         {
             MazeNode current = path[i];
             MazeNode next = path[i + 1];

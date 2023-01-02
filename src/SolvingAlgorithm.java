@@ -1,4 +1,6 @@
 public interface SolvingAlgorithm
 {
-    public MazeNode[] solve(Maze maze);
+    MazeNode[] solve(Maze maze);
+
+    int getTotal_visited();
 }

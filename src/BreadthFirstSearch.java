@@ -1,9 +1,8 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Queue;
 
-public class BreadthFirst implements SolvingAlgorithm
+public class BreadthFirstSearch implements SolvingAlgorithm
 {
     int total_visited = 0;
     @Override

@@ -7,10 +7,27 @@ public class Main
 {
     public static void main(String[] args)
     {
-        // program call: Mazesolving /Mazes/small.png -m [method] -o /output/path/solved.png
+        // program call: Mazesolving /Mazes/small.png -m [method] /output/path/solved.png
+
+        if (args.length < 1)
+        {
+            System.out.println("""
+Welcome to Mazesolver!
+
+Usage: Mazesolving /path/to/input.png /path/to/output.png (-m [solving method])
+
+Path to input and output must always be specified. Paths can be relative or absolute.
+
+Flags:
+-m / --method  optional flag for path finding algorithm choice. if not specified, BFS is default.
+-h / --help    Show this information.              
+                    """);
+        }
+
+        String maze_path = "Mazes/normal.png";
 
         // Load maze
-        Maze maze = new Maze("Mazes/small.png");
+        Maze maze = new Maze(maze_path);
 
         System.out.println("Loading maze");
         maze.loadMaze();

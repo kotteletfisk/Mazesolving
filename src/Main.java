@@ -7,9 +7,10 @@ public class Main
 {
     public static void main(String[] args)
     {
+        // program call: Mazesolving /Mazes/small.png -m [method] -o /output/path/solved.png
 
         // Load maze
-        Maze maze = new Maze("Mazes/perfect10k.png");
+        Maze maze = new Maze("Mazes/small.png");
 
         System.out.println("Loading maze");
         maze.loadMaze();
@@ -21,12 +22,12 @@ public class Main
         double time_elapsed = System.currentTimeMillis() - time_start;
         System.out.println("Seconds elapsed: " + time_elapsed /1000);
 
-       // maze.printNodeMap(); // debug method: check entrance node position
+       // maze.printNodeMap(); // debug method: prints a 2D array with nodes represented as 1.
 
-      //  maze.printNodeConnections();
+      //  maze.printNodeConnections(); // debug method: goes through node array, and prints every nodes amount of connections
 
         // Find the shortest path
-        SolvingAlgorithm bfs = new BreadthFirst();
+        SolvingAlgorithm bfs = new BreadthFirstSearch();
 
         System.out.println("Finding path...");
         time_start = System.currentTimeMillis();

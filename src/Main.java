@@ -9,19 +9,35 @@ public class Main
     {
         // program call: Mazesolving /Mazes/small.png -m [method] /output/path/solved.png
 
-        if (args.length < 1)
-        {
-            System.out.println("""
+        String help_info = """
 Welcome to Mazesolver!
 
 Usage: Mazesolving /path/to/input.png /path/to/output.png (-m [solving method])
 
 Path to input and output must always be specified. Paths can be relative or absolute.
+Run the program with -h, --help or without any arguments to show this help.
 
 Flags:
 -m / --method  optional flag for path finding algorithm choice. if not specified, BFS is default.
--h / --help    Show this information.              
-                    """);
+-h / --help    Show this information only.              
+                    """;
+
+        if (args.length < 1)
+        {
+            System.out.println(help_info);
+        }
+
+        else if (args.length > 0 && args.length < 2)
+        {
+            if (args[0].equalsIgnoreCase("-h") || args[0].equalsIgnoreCase("--help"))
+            {
+                System.out.println(help_info);
+            }
+
+            else
+            {
+                throw new IllegalArgumentException("Input and output path must be specified!");
+            }
         }
 
         String maze_path = "Mazes/normal.png";

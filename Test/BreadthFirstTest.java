@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.*;
 
 public class BreadthFirstTest // implements SolvingAlgorithm
@@ -10,8 +11,15 @@ public class BreadthFirstTest // implements SolvingAlgorithm
     {
         Maze maze = new Maze("Mazes/small.png");
 
-        maze.loadMaze();
+        try
+        {
+            maze.loadMaze();
+        }
 
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         maze.createNodes();
 
         maze.printNodeMap();

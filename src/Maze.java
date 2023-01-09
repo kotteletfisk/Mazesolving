@@ -18,18 +18,10 @@ public class Maze
         this.img_path = img_path;
     }
 
-    public void loadMaze()
+    public void loadMaze() throws IOException
     {
-        try
-        {
-            maze_img = ImageIO.read(new File(img_path));
-            node_map = new MazeNode[maze_img.getWidth()][maze_img.getHeight()];
-        }
-        catch (IOException e)
-        {
-            System.out.println("Failed to load maze image");
-            e.printStackTrace();
-        }
+        maze_img = ImageIO.read(new File(img_path));
+        node_map = new MazeNode[maze_img.getWidth()][maze_img.getHeight()];
     }
 
     public int createNodes()

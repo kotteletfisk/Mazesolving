@@ -95,15 +95,18 @@ public class Mazesolver
                     {
                         switch (args[3])
                         {
+                            // example:
                             case "bfs":
                                 solver = new BreadthFirstSearch();
+                                break;
 
 
                             // Add new solving algo calls here. Use lowercase acronyms please!
 
                             default:
                             {
-                                solver = new BreadthFirstSearch();
+                                System.out.println("Method not recognized. Using default.");
+                                break;
                             }
                         }
                     }

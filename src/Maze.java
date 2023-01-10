@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Maze
 {
-    private String img_path;
+    private final String img_path;
 
     private BufferedImage maze_img;
     private MazeNode[][] node_map;

@@ -26,7 +26,6 @@ public class Maze
 
     public int createNodes()
     {
-        //TODO: Best way to store nodes?? 2D array seems dumb...
 
         int node_count = 0;
         MazeNode[] above_nodes = new MazeNode[maze_img.getWidth()];

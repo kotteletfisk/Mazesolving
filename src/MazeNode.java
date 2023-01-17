@@ -8,6 +8,7 @@ public class MazeNode
     private MazeNode north;
     private MazeNode south;
 
+    
     public boolean visited;
     public MazeNode parent;
 
@@ -65,10 +66,13 @@ public class MazeNode
     {
         int count = 0;
 
-        if (west != null) { count++; }
-        if (east != null) { count++; }
-        if (north != null) { count++; }
-        if (south != null) { count++; }
+        for (MazeNode n : getNeighbours())
+        {
+            if (n != null)
+            {
+                count++;
+            }
+        }
 
         return count;
     }

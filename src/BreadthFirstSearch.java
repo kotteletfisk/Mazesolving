@@ -11,8 +11,6 @@ public class BreadthFirstSearch implements SolvingAlgorithm
         MazeNode entrance = maze.getEntrance();
         MazeNode exit = maze.getExit();
         MazeNode current;
-//        HashMap<MazeNode, ArrayList<MazeNode>> path = new HashMap<>();
-
         Queue<MazeNode> queue = new ArrayDeque<>();
 
         // Traverse queue starting from entrance

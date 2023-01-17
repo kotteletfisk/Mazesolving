@@ -181,7 +181,7 @@ public class Maze
         return node_count;
     }
 
-    public void addNode(MazeNode node)
+    private void addNode(MazeNode node)
     {
         node_map[node.getX_pos()][node.getY_pos()] = node;
     }

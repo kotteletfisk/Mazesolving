@@ -7,147 +7,92 @@ public class Mazesolver
 {
     public static void main(String[] args)
     {
-        // program call: Mazesolver /Mazes/small.png /output/path/solved.png -m [method]
+        // CLI program call: Mazesolver /input/path/maze.png /output/path/solved.png -m [method] ex: "bfs"
 
-        String help_info = "Welcome to Mazesolver!\n\n" +
+        /*
+        Rules:
+        Mazes must be in 1bit color (b/w)
+        Only png format is tested
+        Paths can only be 1 pixel wide
+        Entrance and exit must be in top and bottom
+        1 entrance and 1 exit allowed
+        Outer wall of maze image must be black. No whitespace!
 
-                "Usage: Mazesolver /path/to/input.png /path/to/output.png (-m [solving method])\n\n" +
+        Solving algorithms must implement the "SolvingAlgorithm" interface
+        in order to be incorporated into the CLI version.
 
-                "Path to input and output must always be specified. Paths can be relative or absolute.\n" +
-                "Run the program with -h, --help or without any arguments to show this help.\n\n" +
+        MazeNodes have 2 public attributes meant to be used by solving algorithms for keeping track of node traversal,
+        but do whatever.
 
-                "Current available solving methods:\n" +
-                "bfs = Breadth first search\n\n" +
+        Have fun!
+        */
 
-                "Rules:\n" +
-                "Only png format is tested\n" +
-                "Mazes must be in 1bit color (b/w)\n" +
-                "Paths can only be 1 pixel wide\n" +
-                "Entrance and exit must be in top and bottom\n" +
-                "1 entrance and 1 exit allowed\n" +
-                "Outer wall of maze image must be black. no whitespace!\n\n" +
+        String input_path = "Mazes/normal.png";
+        String output_path = "Mazes/output.png";
 
-                "Flags:\n" +
-                "-m / --method  optional flag for path finding algorithm choice. if not specified, BFS is default.\n" +
-                "-h / --help    Show this information only.";
+        // Load maze
+        Maze maze = new Maze(input_path);
 
-        if (args.length < 1)
+
+        System.out.println("Loading maze...");
+
+        try
         {
-            System.out.println(help_info);
+            maze.loadMaze();
         }
 
-        else if (args.length == 1)
+        catch (IOException e)
         {
-            if (args[0].equalsIgnoreCase("-h") || args[0].equalsIgnoreCase("--help"))
-            {
-                System.out.println(help_info);
-            }
-
-            else
-            {
-                throw new IllegalArgumentException("Input and output path must be specified!");
-            }
+            System.out.println("Input file not found");
+            System.exit(1);
         }
 
+        System.out.println("Creating nodes...");
+        long time_start = System.currentTimeMillis();
+        int node_count = maze.createNodes();
+        System.out.println("Nodes created: " + node_count);
+        float time_elapsed = System.currentTimeMillis() - time_start;
+        System.out.println("Seconds elapsed: " + time_elapsed / 1000);
 
-        else if (args.length > 1)
+        // maze.printNodeMap(); // debug method: prints a 2D array with nodes represented as 1.
+
+        // maze.printNodeConnections(); // debug method: goes through node array, and prints every node's amount of connections in sequence.
+        // not very readable, but can be useful!
+
+
+        // Find the shortest path
+        SolvingAlgorithm solver = new BreadthFirstSearch(); // Your method here!
+
+
+        System.out.println("Finding path...");
+        time_start = System.currentTimeMillis();
+        MazeNode[] path = solver.solve(maze);
+
+        if (path == null)
         {
-            String input_path = args[0];
-            String output_path = args[1];
+            System.out.println("Unable to find path between exit and entrance");
+            System.exit(1);
+        }
 
-            // Load maze
-            Maze maze = new Maze(input_path);
-
-
-            System.out.println("Loading maze...");
-
-            try
-            {
-                maze.loadMaze();
-            }
-
-            catch (IOException e)
-            {
-                System.out.println("Input file not found");
-                System.exit(1);
-            }
-
-            System.out.println("Creating nodes...");
-            long time_start = System.currentTimeMillis();
-            int node_count = maze.createNodes();
-            System.out.println("Nodes created: " + node_count);
-            float time_elapsed = System.currentTimeMillis() - time_start;
-            System.out.println("Seconds elapsed: " + time_elapsed / 1000);
-
-            // maze.printNodeMap(); // debug method: prints a 2D array with nodes represented as 1.
-
-            // maze.printNodeConnections(); // debug method: goes through node array, and prints every node's amount of connections in sequence
+        System.out.println("Path found!");
+        System.out.println("Nodes visited: " + solver.getTotal_visited());
+        time_elapsed = System.currentTimeMillis() - time_start;
+        System.out.println("Seconds elapsed: " + time_elapsed / 1000);
 
 
-            // Find the shortest path
-            SolvingAlgorithm solver = new BreadthFirstSearch();
+        // Draw path on image
+        System.out.println("Drawing to image...");
+        BufferedImage drawn_image = PathDrawer.drawPath(maze.getMaze_img(), path);
 
-            if (args.length > 2)
-            {
-                if (args[2].equalsIgnoreCase("-m") || args[2].equalsIgnoreCase("--method"))
-                {
-                    if (args.length > 3)
-                    {
-                        switch (args[3].toLowerCase())
-                        {
-                            // example:
-                            case "bfs":
-                                solver = new BreadthFirstSearch();
-                                break;
+        // Output image
+        try
+        {
+            ImageIO.write(drawn_image, "png", new File(output_path));
+        }
 
-
-                            // Add new solving algo calls here. Use lowercase acronyms please!
-
-                            default:
-                            {
-                                System.out.println("Method not recognized. Using default.");
-                                break;
-                            }
-                        }
-                    }
-
-                    else
-                    {
-                        System.out.println("Method flag used, but method not specified. Using default.");
-                    }
-                }
-            }
-
-
-                System.out.println("Finding path...");
-                time_start = System.currentTimeMillis();
-                MazeNode[] path = solver.solve(maze);
-
-                if (path == null)
-                {
-                    System.out.println("Unable to find path between exit and entrance");
-                    System.exit(1);
-                }
-
-                System.out.println("Path found!");
-                System.out.println("Nodes visited: " + solver.getTotal_visited());
-                time_elapsed = System.currentTimeMillis() - time_start;
-                System.out.println("Seconds elapsed: " + time_elapsed / 1000);
-
-
-            // Draw path on image
-            BufferedImage drawn_image = PathDrawer.drawPath(maze.getMaze_img(), path);
-
-            // Output image
-            try
-            {
-                ImageIO.write(drawn_image, "png", new File(output_path));
-            }
-
-            catch (IOException e)
-            {
-                System.out.println("Failed to output image. Is the specified path correct?");
-            }
+        catch (IOException e)
+        {
+            System.out.println("Failed to output image. Is the specified path correct?");
         }
     }
 }

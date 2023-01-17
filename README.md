@@ -1,4 +1,4 @@
 # Mazesolving
 
-A (loose) Java implementation of the mazesolver by Mike Pound: https://github.com/mikepound/mazesolving
-made as a small spare time project
+A small project for solving pixel mazes in Java. 
+Heavily inspired from Mike Pound's python project: https://github.com/mikepound/mazesolving

@@ -6,7 +6,7 @@ import java.util.*;
 public class BreadthFirstTest // implements SolvingAlgorithm
 {
 
-    // deprecated version
+    // Inefficient deprecated version.
     @Test
     public void /*MazeNode[]*/ solve(/* Maze maze */)
     {

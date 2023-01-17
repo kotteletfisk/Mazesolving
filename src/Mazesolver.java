@@ -7,7 +7,7 @@ public class Mazesolver
 {
     public static void main(String[] args)
     {
-        // program call: Mazesolver /Mazes/small.png -m [method] /output/path/solved.png
+        // program call: Mazesolver /Mazes/small.png /output/path/solved.png -m [method]
 
         String help_info = "Welcome to Mazesolver!\n\n" +
 
@@ -23,9 +23,9 @@ public class Mazesolver
                 "Only png format is tested\n" +
                 "Mazes must be in 1bit color (b/w)\n" +
                 "Paths can only be 1 pixel wide\n" +
-                "Entrance must be in top, exit in bottom\n" +
+                "Entrance and exit must be in top and bottom\n" +
                 "1 entrance and 1 exit allowed\n" +
-                "Outer wall of maze must be black. no whitespace!\n\n" +
+                "Outer wall of maze image must be black. no whitespace!\n\n" +
 
                 "Flags:\n" +
                 "-m / --method  optional flag for path finding algorithm choice. if not specified, BFS is default.\n" +
@@ -52,14 +52,14 @@ public class Mazesolver
 
         else if (args.length > 1)
         {
-        String input_path = args[0];
-        String output_path = args[1];
+            String input_path = args[0];
+            String output_path = args[1];
 
             // Load maze
             Maze maze = new Maze(input_path);
 
 
-            System.out.println("Loading maze");
+            System.out.println("Loading maze...");
 
             try
             {
@@ -69,7 +69,7 @@ public class Mazesolver
             catch (IOException e)
             {
                 System.out.println("Input file not found");
-                e.printStackTrace();
+                System.exit(1);
             }
 
             System.out.println("Creating nodes...");
@@ -81,7 +81,7 @@ public class Mazesolver
 
             // maze.printNodeMap(); // debug method: prints a 2D array with nodes represented as 1.
 
-            //  maze.printNodeConnections(); // debug method: goes through node array, and prints every node's amount of connections in sequence
+            // maze.printNodeConnections(); // debug method: goes through node array, and prints every node's amount of connections in sequence
 
 
             // Find the shortest path
@@ -93,7 +93,7 @@ public class Mazesolver
                 {
                     if (args.length > 3)
                     {
-                        switch (args[3])
+                        switch (args[3].toLowerCase())
                         {
                             // example:
                             case "bfs":
@@ -122,6 +122,13 @@ public class Mazesolver
                 System.out.println("Finding path...");
                 time_start = System.currentTimeMillis();
                 MazeNode[] path = solver.solve(maze);
+
+                if (path == null)
+                {
+                    System.out.println("Unable to find path between exit and entrance");
+                    System.exit(1);
+                }
+
                 System.out.println("Path found!");
                 System.out.println("Nodes visited: " + solver.getTotal_visited());
                 time_elapsed = System.currentTimeMillis() - time_start;
@@ -129,9 +136,7 @@ public class Mazesolver
 
 
             // Draw path on image
-            PathDrawer pd = new PathDrawer();
-
-            BufferedImage drawn_image = pd.drawPath(maze.getMaze_img(), path);
+            BufferedImage drawn_image = PathDrawer.drawPath(maze.getMaze_img(), path);
 
             // Output image
             try
@@ -141,8 +146,7 @@ public class Mazesolver
 
             catch (IOException e)
             {
-                System.out.println("Failed to output image");
-                e.printStackTrace();
+                System.out.println("Failed to output image. Is the specified path correct?");
             }
         }
     }

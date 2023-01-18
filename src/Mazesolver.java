@@ -7,14 +7,14 @@ public class Mazesolver
 {
     public static void main(String[] args)
     {
-        // program call: Mazesolver /Mazes/small.png /output/path/solved.png -m [method]
+        // program call: Mazesolver /path/to/input.png /output/path/solved.png -m [method]
 
         String help_info = "Welcome to Mazesolver!\n\n" +
 
                 "Usage: Mazesolver /path/to/input.png /path/to/output.png (-m [solving method])\n\n" +
 
                 "Path to input and output must always be specified. Paths can be relative or absolute.\n" +
-                "Run the program with -h, --help or without any arguments to show this help.\n\n" +
+                "Run the program with only -h, --help or without any arguments to show this information.\n\n" +
 
                 "Current available solving methods:\n" +
                 "bfs = Breadth first search\n\n" +
@@ -25,7 +25,7 @@ public class Mazesolver
                 "Paths can only be 1 pixel wide\n" +
                 "Entrance and exit must be in top and bottom\n" +
                 "1 entrance and 1 exit allowed\n" +
-                "Outer wall of maze image must be black. no whitespace!\n\n" +
+                "Outer wall of maze image must be black. No whitespace!\n\n" +
 
                 "Flags:\n" +
                 "-m / --method  optional flag for path finding algorithm choice. if not specified, BFS is default.\n" +
@@ -101,7 +101,7 @@ public class Mazesolver
                                 break;
 
 
-                            // Add new solving algo calls here. Use lowercase acronyms please!
+                            // Add new solving algo calls here
 
                             default:
                             {

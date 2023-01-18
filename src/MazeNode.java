@@ -8,7 +8,6 @@ public class MazeNode
     private MazeNode north;
     private MazeNode south;
 
-    
     public boolean visited;
     public MazeNode parent;
 

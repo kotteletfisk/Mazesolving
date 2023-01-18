@@ -1,4 +1,4 @@
-public interface SolvingAlgorithm
+interface SolvingAlgorithm
 {
     MazeNode[] solve(Maze maze); // returns null if no path is found
 

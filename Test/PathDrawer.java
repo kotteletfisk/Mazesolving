@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class PathDrawer
+class PathDrawer
 {
     public static BufferedImage drawPath(BufferedImage image, MazeNode[] path)
     {

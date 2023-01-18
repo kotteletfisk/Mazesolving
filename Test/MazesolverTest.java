@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class MazesolverTest
+class MazesolverTest
 {
     public static void main(String[] args)
     {

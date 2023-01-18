@@ -1,4 +1,4 @@
-public class MazeNode
+class MazeNode
 {
     private final int x_pos;
     private final int y_pos;

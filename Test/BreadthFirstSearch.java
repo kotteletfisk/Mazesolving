@@ -2,7 +2,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Queue;
 
-public class BreadthFirstSearch implements SolvingAlgorithm
+class BreadthFirstSearch implements SolvingAlgorithm
 {
     int total_visited = 0;
     @Override

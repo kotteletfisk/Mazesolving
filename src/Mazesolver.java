@@ -27,7 +27,7 @@ public class Mazesolver
         Have fun!
         */
 
-        String input_path = "Mazes/normal.png";
+        String input_path = "Mazes/normalpng";
         String output_path = "Mazes/output.png";
 
         // Load maze
@@ -81,7 +81,7 @@ public class Mazesolver
 
 
         // Draw path on image
-        System.out.println("Drawing to image...");
+        System.out.println("Drawing path...");
         BufferedImage drawn_image = PathDrawer.drawPath(maze.getMaze_img(), path);
 
         // Output image

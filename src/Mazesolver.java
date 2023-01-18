@@ -27,7 +27,7 @@ public class Mazesolver
         Have fun!
         */
 
-        String input_path = "Mazes/normalpng";
+        String input_path = "Mazes/normal.png";
         String output_path = "Mazes/output.png";
 
         // Load maze

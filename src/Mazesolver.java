@@ -136,6 +136,7 @@ public class Mazesolver
 
 
             // Draw path on image
+            System.out.println("Drawing path...");
             BufferedImage drawn_image = PathDrawer.drawPath(maze.getMaze_img(), path);
 
             // Output image

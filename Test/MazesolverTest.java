@@ -27,7 +27,7 @@ class MazesolverTest
         Have fun!
         */
 
-        String input_path = "Mazes/tiny.png";
+        String input_path = "Mazes/normal.png";
         String output_path = "Mazes/output.png";
 
         // Load maze
